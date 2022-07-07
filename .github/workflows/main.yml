@@ -55,4 +55,4 @@ jobs:
           bin/console doctrine:fixtures:load -n
           bin/phpunit
         env:
-          DATABASE_URL: DATABASE_URL=mysql://user:DwWqRR8feH@127.0.0.1:33306/dbtest?serverVersion=mariadb-10.8.3
+          DATABASE_URL: mysql://user:DwWqRR8feH@127.0.0.1:33306/dbtest?serverVersion=mariadb-10.8.3
