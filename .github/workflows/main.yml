@@ -1,0 +1,65 @@
+name: MAIN
+on: [push]
+
+jobs:
+  build-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        php-versions: ['8.1']
+    services:
+      mysql:
+        image: mariadb:10.8.3
+        env:
+          MYSQL_DATABASE: dbtest
+          MYSQL_USER: user
+          MYSQL_PASSWORD: DwWqRR8feH
+          MYSQL_ROOT_PASSWORD: 3le6DSP1Gi
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, ctype, iconv, intl
+          coverage: pcov
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: |
+          composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+          yarn install
+          yarn encore production
+      - uses: actions/cache@v2
+        id: cache-vuln-db
+        with:
+          path: ~/.symfony/cache
+          key: vuln-db
+      - uses: symfonycorp/security-checker-action@v2
+      - name: Run phpunit-test
+        run: |
+          bin/console doctrine:database:drop --force --if-exists
+          bin/console doctrine:database:create
+          bin/console doctrine:migration:migrate -n --allow-no-migration
+          bin/console doctrine:fixtures:load -n
+          php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" bin/phpunit --coverage-clover ./clover.xml
+        env:
+          DATABASE_URL: mysql://user:DwWqRR8feH@127.0.0.1:33306/dbtest?serverVersion=mariadb-10.8.3
+
+      - name: Generate test coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.0
+        with:
+          coverage_badge_path: 'badge-coverage.svg'
+          push_badge: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
