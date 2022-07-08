@@ -26,7 +26,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring, xml, ctype, iconv, intl
-          coverage: pconv
+          coverage: pcov
       - name: Get composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -53,6 +53,13 @@ jobs:
           bin/console doctrine:database:create
           bin/console doctrine:migration:migrate -n --allow-no-migration
           bin/console doctrine:fixtures:load -n
-          bin/phpunit
+          php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" bin/phpunit --coverage-clover ./clover.xml
         env:
           DATABASE_URL: mysql://user:DwWqRR8feH@127.0.0.1:33306/dbtest?serverVersion=mariadb-10.8.3
+
+      - name: Generate test coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.0
+        with:
+          coverage_badge_path: 'badge-coverage.svg'
+          push_badge: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
