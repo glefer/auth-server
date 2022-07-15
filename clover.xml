@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1657259982">
-  <project timestamp="1657259982">
+<coverage generated="1657862959">
+  <project timestamp="1657862959">
     <file name="/home/runner/work/auth-server/auth-server/src/Kernel.php">
       <class name="App\Kernel" namespace="global">
         <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
