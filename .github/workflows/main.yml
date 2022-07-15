@@ -47,6 +47,8 @@ jobs:
           path: ~/.symfony/cache
           key: vuln-db
       - uses: symfonycorp/security-checker-action@v2
+      - name: Code Quality
+        run: php -d memory_limit=512M ./vendor/bin/grumphp run --testsuite=code-quality
       - name: Run phpunit-test
         run: |
           bin/console doctrine:database:drop --force --if-exists
