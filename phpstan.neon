@@ -1,0 +1,12 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+parameters:
+	level: 6
+	paths:
+		- src
+		- tests
+	checkGenericClassInNonGenericObjectType: false
+	ignoreErrors:
+	    - "#Property [a-zA-Z0-9\\\\:\\$]+ type has no value type specified in iterable type array#"
+	    - "#Method [a-zA-Z0-9\\\\:\\(\\)]+ return type has no value type specified in iterable type array.#"
+	    - "#Method [a-zA-Z0-9\\\\:\\(\\)_]+ has parameter \\$[a-zA-Z0-9_]+ with no value type specified in iterable type array#"
