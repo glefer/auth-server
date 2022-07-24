@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RealmsController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="https://c0.klipartz.com/pngpicture/700/421/gratis-png-pokemon-squirtle-squirtle-pokemon.png"
+                         alt="aaa">
+                    <h2>AUTH <span class="color-primary">SERVER</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                   <span class="material-icons-sharp">
+                       close
+                   </span>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="#" class="active">
+                    <span class="material-icons-sharp">grid_view</span>
+                    <h3>dashboard</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">settings</span>
+                    <h3>realms</h3>
+                    <span class="message-count">13</span>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">group</span>
+                    <h3>users</h3>
+                    <span class="message-count">13</span>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>logout</h3>
+                </a>
+            </div>
+
+        </aside>
+    </div>
+{% endblock %}

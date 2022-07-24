@@ -1,0 +1,180 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  appearance: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+$background-color: #f6f6f9;
+$color-primary: #7380ec;
+$color-success: #41f1b6;
+$color-warning: #FFBB55;
+$color-danger: #ff5574;
+$color-white: #FFFFFF;
+$color-info-dark: #7d8da1;
+$color-info-light: #dce1eb;
+$color-dark: #363949;
+$color-light: #6f7f934f;
+
+
+html {
+  font-size: 14px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-size: 0.88rem;
+  background-color: $background-color;
+  user-select: none;
+  overflow-x: hidden;
+
+  .sidebar {
+    a {
+      color: black;
+    }
+
+    h1 {
+      font-weight: 800;
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    h3 {
+      font-size: 0.90rem;
+    }
+
+    h4 {
+      font-size: 0.8rem;
+    }
+
+    h5 {
+      font-size: 0.7rem;
+    }
+
+    small {
+      font-size: 0.75rem;
+    }
+  }
+
+  .text-muted {
+    color: #999999;
+  }
+
+  .color-primary {
+    color: $color-primary;
+  }
+
+  .container {
+    display: grid;
+    width: 96%;
+    margin: 0 auto;
+    gap: 1.8rem;
+    grid-template-columns: 17rem auto 23rem;
+  }
+
+  aside {
+    height: 100vh;
+
+    h3 {
+      font-weight: 500;
+    }
+
+    .sidebar {
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 85vh;
+      position: relative;
+      top: 3rem;
+
+      a {
+        display: flex;
+        color: #000000;
+        margin-left: 2rem;
+        gap: 1rem;
+        align-items: center;
+        position: relative;
+        height: 3.7rem;
+        transition: all 300ms ease;
+
+        &:hover{
+          color: $color-primary;
+
+          span{
+            margin-left: 0.75rem;
+          }
+
+        }
+
+        &:last-child {
+          position: absolute;
+          bottom: 2rem;
+          width: 100%;
+        }
+
+        &.active {
+          background-color: $color-light;
+          color: $color-primary;
+          margin-left: 0;
+
+          &:before {
+            content: "";
+            width: 6px;
+            height: 100%;
+            background-color: $color-primary;
+          }
+
+          span{
+            color: $color-primary;
+            margin-left: calc(1rem - 6px);
+          }
+
+        }
+
+        span {
+          font-size: 1.6rem;
+          transition: all 300ms ease;
+        }
+      }
+
+      .message-count{
+        background-color: $color-primary;
+        color: $color-white;
+        padding: 2px 10px;
+        font-size: 11px;
+        border-radius: 10px;
+      }
+
+    }
+
+    .close {
+      display: none;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.4rem;
+
+      .logo {
+        display: flex;
+        gap: 0.8rem;
+
+        img {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+    }
+
+  }
+}
